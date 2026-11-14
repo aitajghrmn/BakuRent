@@ -1,0 +1,26 @@
+@model BakuRentWeb.Models.Listing
+
+@{
+    ViewData["Title"] = "Yeni elan";
+}
+
+<div class="container mt-4">
+
+    <h2>Yeni elan yarat</h2>
+
+    <div class="card p-4">
+        <form asp-action="Create" method="post">
+
+            <partial name="_Form" />
+
+            <button type="submit" class="btn btn-success">Göndər</button>
+            <a asp-action="Index" class="btn btn-secondary">Geri</a>
+
+        </form>
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
