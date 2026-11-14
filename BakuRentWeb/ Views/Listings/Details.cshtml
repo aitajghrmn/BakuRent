@@ -1,0 +1,37 @@
+@model BakuRentWeb.Models.Listing
+
+@{
+    ViewData["Title"] = "Elanın detalları";
+}
+
+<div class="container mt-4">
+
+    <h2>Elanın detalları</h2>
+
+    <div class="card p-4">
+
+        <h4>@Model.Title</h4>
+        <hr />
+
+        <p><strong>ID:</strong> @Model.Id</p>
+        <p><strong>Təsvir:</strong> @Model.Description</p>
+        <p><strong>Rayon:</strong> @Model.District</p>
+        <p><strong>Otaq sayı:</strong> @Model.Rooms</p>
+        <p><strong>Qiymət:</strong> @Model.Price AZN / ay</p>
+        <p><strong>Telefon:</strong> @Model.Phone</p>
+        <p>
+            <strong>Status:</strong>
+            <span class="badge @(Model.Status == "Active" ? "bg-success" : "bg-secondary")">
+                @ListingOptions.StatusLabel(Model.Status)
+            </span>
+        </p>
+        <p><strong>Tarix:</strong> @Model.CreatedAt.ToString("dd.MM.yyyy HH:mm")</p>
+
+        <div>
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Redaktə</a>
+            <a asp-action="Index" class="btn btn-secondary">Geri</a>
+        </div>
+
+    </div>
+
+</div>
