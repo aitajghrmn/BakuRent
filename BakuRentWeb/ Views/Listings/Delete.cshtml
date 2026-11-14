@@ -1,0 +1,26 @@
+@model BakuRentWeb.Models.Listing
+
+@{
+    ViewData["Title"] = "Elanı sil";
+}
+
+<div class="container mt-4">
+
+    <h2>Elanı silmək</h2>
+
+    <div class="alert alert-warning">
+        Bu elanı silmək istədiyinizə əminsiniz?
+    </div>
+
+    <div class="card p-4">
+        <h4>@Model.Title</h4>
+        <p>@Model.Description</p>
+        <p><strong>@Model.District</strong> · @Model.Rooms otaq · @Model.Price AZN</p>
+
+        <form asp-action="Delete" asp-route-id="@Model.Id" method="post">
+            <button type="submit" class="btn btn-danger">Bəli, sil</button>
+            <a asp-action="Index" class="btn btn-secondary">Xeyr</a>
+        </form>
+    </div>
+
+</div>
