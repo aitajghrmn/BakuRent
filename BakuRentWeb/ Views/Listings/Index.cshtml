@@ -1,0 +1,102 @@
+@model IEnumerable<BakuRentWeb.Models.Listing>
+
+@{
+    ViewData["Title"] = "Elanlar";
+}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="mb-0">Kirayə elanları</h2>
+        <a asp-action="Create" class="btn btn-brand">Yeni elan</a>
+    </div>
+
+    <form method="get" asp-action="Index" class="card p-3 mb-3">
+        <div class="row g-2">
+            <div class="col-md-3">
+                <input type="text" name="search" class="form-control"
+                       placeholder="Axtar..." value="@ViewBag.Search" />
+            </div>
+
+            <div class="col-md-2">
+                <select name="district" class="form-select">
+                    <option value="">Bütün rayonlar</option>
+                    @foreach (var d in ListingOptions.Districts)
+                    {
+                        <option value="@d" selected="@((string?)ViewBag.District == d)">@d</option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <select name="status" class="form-select">
+                    <option value="">Bütün statuslar</option>
+                    <option value="Active" selected="@((string?)ViewBag.StatusFilter == "Active")">Aktiv</option>
+                    <option value="Rented" selected="@((string?)ViewBag.StatusFilter == "Rented")">Kirayə verilib</option>
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <select name="sort" class="form-select">
+                    <option value="date_desc" selected="@((string?)ViewBag.Sort == "date_desc")">Ən yeni əvvəl</option>
+                    <option value="date_asc" selected="@((string?)ViewBag.Sort == "date_asc")">Ən köhnə əvvəl</option>
+                    <option value="price_asc" selected="@((string?)ViewBag.Sort == "price_asc")">Qiymət: ucuzdan bahaya</option>
+                    <option value="price_desc" selected="@((string?)ViewBag.Sort == "price_desc")">Qiymət: bahadan ucuza</option>
+                </select>
+            </div>
+
+            <div class="col-md-2 d-flex gap-2">
+                <button type="submit" class="btn btn-dark flex-fill">Tətbiq et</button>
+                <a asp-action="Index" class="btn btn-outline-secondary">Sıfırla</a>
+            </div>
+        </div>
+    </form>
+
+    <p class="text-muted">Tapıldı: <strong>@Model.Count()</strong> / Cəmi: <strong>@ViewBag.TotalCount</strong></p>
+
+    <table class="table table-bordered table-striped align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Başlıq</th>
+                <th>Rayon</th>
+                <th>Otaq</th>
+                <th>Qiymət</th>
+                <th>Status</th>
+                <th>Əməliyyatlar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Title</td>
+                    <td>@item.District</td>
+                    <td>@item.Rooms</td>
+                    <td>@item.Price AZN</td>
+                    <td>
+                        <span class="badge @(item.Status == "Active" ? "bg-success" : "bg-secondary")">
+                            @ListingOptions.StatusLabel(item.Status)
+                        </span>
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Ətraflı</a>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Redaktə</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Sil</a>
+
+                        <form asp-action="ChangeStatus" asp-route-id="@item.Id" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-outline-dark btn-sm">Statusu dəyiş</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (!Model.Any())
+    {
+        <p>Heç bir elan tapılmadı.</p>
+    }
+
+</div>
