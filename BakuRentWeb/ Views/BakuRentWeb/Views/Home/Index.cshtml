@@ -1,0 +1,35 @@
+@{
+    ViewData["Title"] = "Ana səhifə";
+}
+
+<div class="container mt-4">
+
+    <div class="hero mb-4">
+        <h1>BakuRent</h1>
+        <p class="lead">Bakıda kirayə mənzil elanlarını tap, yerləşdir və idarə et.</p>
+        <a asp-controller="Listings" asp-action="Index" class="btn btn-light btn-lg">Elanlara bax</a>
+        <a asp-controller="Listings" asp-action="Create" class="btn btn-brand btn-lg">Yeni elan yarat</a>
+    </div>
+
+    <div class="row g-3">
+        <div class="col-md-4">
+            <div class="card stat-card">
+                <div class="stat-number">@ViewBag.Total</div>
+                <div>Ümumi elan sayı</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card stat-card">
+                <div class="stat-number">@ViewBag.Active</div>
+                <div>Aktiv elanlar</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card stat-card">
+                <div class="stat-number">@ViewBag.Rented</div>
+                <div>Kirayə verilib</div>
+            </div>
+        </div>
+    </div>
+
+</div>
