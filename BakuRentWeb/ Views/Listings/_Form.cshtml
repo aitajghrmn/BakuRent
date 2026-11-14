@@ -1,0 +1,47 @@
+@model BakuRentWeb.Models.Listing
+
+<div class="mb-3">
+    <label asp-for="Title" class="form-label">Elanın başlığı</label>
+    <input asp-for="Title" class="form-control" />
+    <span asp-validation-for="Title" class="text-danger"></span>
+</div>
+
+<div class="mb-3">
+    <label asp-for="Description" class="form-label">Təsvir</label>
+    <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+    <span asp-validation-for="Description" class="text-danger"></span>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-3">
+        <label asp-for="District" class="form-label">Rayon</label>
+        <select asp-for="District" class="form-select">
+            <option value="">Seçin</option>
+            @foreach (var d in ListingOptions.Districts)
+            {
+                <option value="@d" selected="@(Model.District == d)">@d</option>
+            }
+        </select>
+        <span asp-validation-for="District" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-6 mb-3">
+        <label asp-for="Phone" class="form-label">Telefon</label>
+        <input asp-for="Phone" class="form-control" placeholder="+994501234567" />
+        <span asp-validation-for="Phone" class="text-danger"></span>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-3">
+        <label asp-for="Rooms" class="form-label">Otaq sayı</label>
+        <input asp-for="Rooms" class="form-control" />
+        <span asp-validation-for="Rooms" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-6 mb-3">
+        <label asp-for="Price" class="form-label">Qiymət (AZN / ay)</label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+</div>
